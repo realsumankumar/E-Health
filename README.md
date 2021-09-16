@@ -9,4 +9,3 @@ An EHR can contain the following, but not limited to:
 -Built using Microservice architecture, each micro service implemented using Spring Boot.
 -Developed 15+ features,10+ REST API and auth API using Sprint Boot and Spring Security, integrated 8 microservices using Rest Template and Eureka Server.
 -Created 12 user interfaces for the application using Angular and Bootstrap
-
