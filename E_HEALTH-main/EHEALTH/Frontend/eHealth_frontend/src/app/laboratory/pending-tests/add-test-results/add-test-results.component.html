@@ -1,0 +1,87 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><h2 style="margin-top: 10px; margin-left: 10px;">WELCOME TO EHEALTH  |  LABORATORY ADMIN PANEL</h2></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav" >
+    <ul class="navbar-nav" ml-auto>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/laboratory-panel">Home </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="viewPendingTests">Lab Results</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="">Past Lab Records</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)= "logout()" href="login">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<form class="content" (ngSubmit)="saveRecord()">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputPatientName">Patient Name</label>
+        <input type="text" class="form-control" placeholder="Enter Patient Name.....">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputPhysicianName">Physician Name</label>
+        <input type="text" class="form-control" name="physicianName" [(ngModel)]="physicianName" placeholder="Enter Physician Name....">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAddress">Test Name</label>
+      <input type="text" class="form-control" name="testName" [(ngModel)]="labRecord.testName" placeholder="Test Name">
+    </div>
+    <div class="form-group">
+      <label for="testResults">Test Results</label>
+      <input type="text" class="form-control" name="testResults" [(ngModel)]="labRecordPast.testResults" placeholder="Enter Lab Test Results....">
+    </div>
+
+    <div *ngIf="currentFile" class="progress">
+      <div
+        class="progress-bar progress-bar-info progress-bar-striped"
+        role="progressbar"
+        attr.aria-valuenow="{{ progress }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [ngStyle]="{ width: progress + '%' }"
+      >
+        {{ progress }}%
+      </div>
+    </div>
+      <label class="btn btn-default">
+        <input type="file" (change)="selectFile($event)" />
+      </label>
+
+      <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
+        Upload
+      </button>
+
+      <div class="alert alert-light" role="alert">{{ message }}</div>
+
+      <!-- <div class="col-md-12">
+        <div *ngIf=retrievedImage>
+
+            <img [src]="retrievedImage">
+
+        </div> -->
+
+      <!-- <div class="card">
+        <div class="card-header">List of Files</div>
+        <ul
+          class="list-group list-group-flush"
+          *ngFor="let file of fileInfos | async"
+        >
+          <li class="list-group-item">
+            <a href="{{ file.url }}">{{ file.name }}</a>
+          </li>
+        </ul>
+      </div> -->
+
+    <button type="submit" class="btn btn-primary">Add Results</button>
+  </form>

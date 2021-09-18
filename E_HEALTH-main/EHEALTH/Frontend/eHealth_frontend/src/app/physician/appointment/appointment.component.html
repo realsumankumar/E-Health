@@ -1,0 +1,148 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><h2 style="margin-top: 10px; margin-left: 10px;">WELCOME TO EHEALTH  |  PHYSICIAN PANEL</h2></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav" >
+    <ul class="navbar-nav" ml-auto>
+      <li class="nav-item ">
+        <a class="nav-link" href="physician-panel/{{token}}">Home </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="physician/appointment-panel/{{token}}">Appointment </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="physician/record/{{token}}">Record</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)= "logout()" href="login">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<h2 style="margin-top: 50px; align-content: center; margin-left: 5%; font-size: 40px;">Appointment Details</h2>
+<div class ="table">
+  <mat-table  [dataSource] = "dataSource">
+  <ng-container matColumnDef = "appointmentId">
+    <mat-header-cell *matHeaderCellDef><h2 style="text-decoration-color: black; font-weight:bold;">Appointment ID</h2></mat-header-cell>
+    <mat-cell *matCellDef = "let list" >{{list.appointmentId}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef = "physicianId">
+    <mat-header-cell *matHeaderCellDef><h2>Physician ID</h2>  </mat-header-cell>
+    <mat-cell *matCellDef = "let list">{{list.physicianId}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef = "patientId">
+    <mat-header-cell *matHeaderCellDef> <h2>Patient ID</h2> </mat-header-cell>
+    <mat-cell *matCellDef = "let list">{{list.patientId}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef = "date">
+    <mat-header-cell *matHeaderCellDef> <h2>Date</h2> </mat-header-cell>
+    <mat-cell *matCellDef = "let list">{{list.date}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef = "startTime">
+    <mat-header-cell *matHeaderCellDef><h2>Start Time</h2>  </mat-header-cell>
+    <mat-cell *matCellDef = "let list">{{list.startTime}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef = "endTime">
+    <mat-header-cell *matHeaderCellDef><h2>End Time</h2>  </mat-header-cell>
+    <mat-cell *matCellDef = "let list">{{list.endTime}}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef = "displayedColumns" >
+    <mat-row *matRowDef = "let row; columns: displayedColumns" (click) = "getClickedRow(row)"></mat-row>
+  </mat-header-row>
+
+</mat-table>
+</div>
+
+<h2 style="margin-top: 100px; align-content: center; margin-left: 5%; font-size: 40px;">Patient Details</h2>
+<div *ngIf="showPatientTable; else elseBlock">
+<div class ="table">
+  <table style = "border: 1;" width = "100%">
+
+    <tr>
+       <td>
+          <table style = "border: 1;" width = "100%">
+             <tr>
+                <th><h2>Patient ID</h2></th>
+                <th><h2>First Name </h2></th>
+                <th><h2>Last Name</h2></th>
+               <th> <h2>Email ID</h2></th>
+                <th><h2>Contact</h2></th>
+                <th><h2>View Record</h2></th>
+             </tr>
+             <tr>
+              <td>{{patientSource.id}}</td>
+                <td>{{patientSource.firstName}}</td>
+                <td>{{patientSource.lastName}}</td>
+                <td>{{patientSource.emailId}}</td>
+                <td>{{patientSource.phone}}</td>
+                <td><button mat-button (click)="viewPatientRecord(patientSource.id)">
+                  <mat-icon>launch</mat-icon>
+              </button></td>
+             </tr>
+
+          </table>
+       </td>
+    </tr>
+
+ </table>
+  <!-- <mat-table>
+  <ng-container matColumnDef = "id">
+    <mat-header-cell *matHeaderCellDef><h2>Patient ID</h2></mat-header-cell>
+    <mat-cell  >{{patientSource.id}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef ="firstName">
+    <mat-header-cell *matHeaderCellDef><h2>First Name </h2></mat-header-cell>
+    <mat-cell>{{patientSource.firstName}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef = "lastName">
+    <mat-header-cell *matHeaderCellDef><h2>Last Name</h2>  </mat-header-cell>
+    <mat-cell >{{patientSource.lastName}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef = "phone">
+    <mat-header-cell *matHeaderCellDef> <h2>Contact</h2> </mat-header-cell>
+    <mat-cell >{{patientSource.phone}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef = "emailId">
+    <mat-header-cell *matHeaderCellDef><h2>Email ID</h2>  </mat-header-cell>
+    <mat-cell>{{patientSource.emailId}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="buttons">
+    <mat-header-cell *matHeaderCellDef><h2>View Record</h2></mat-header-cell>
+    <mat-cell >
+        <button mat-button (click)="viewPatientRecord(patientSource.id)">
+            <mat-icon>launch</mat-icon>
+        </button>
+    </mat-cell>
+</ng-container>
+  <mat-header-row *matHeaderRowDef = "patientColumns">
+    <mat-row *matRowDef = "let row; columns: patientColumns"></mat-row>
+  </mat-header-row>
+
+</mat-table> -->
+</div>
+<div class="container">
+  <h1>Prescriptions</h1>
+  <form [formGroup] ='formPerscrption' (ngSubmit) ="PhysicianRecord()">
+    <div class="row">
+      <div class="col-75">
+        <input type="text" formControlName ="medicine" placeholder="Enter medicines..">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-75">
+        <input type="text" formControlName ="test" placeholder="Enter test..">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-75">
+        <textarea id="subject" formControlName ="remarks" placeholder="Remarks/comment.." style="height:200px"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+</div>
+</div>
+<ng-template #elseBlock><h2 style="width: 100%; background-color: #F5F5F5; text-align: center;" >Please select a appointment to show details</h2></ng-template>

@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><h2 style="margin-top: 10px; margin-left: 10px;">WELCOME TO EHEALTH |  ADMIN  PANEL</h2></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav" >
+    <ul class="navbar-nav" ml-auto>
+      <li class="nav-item active">
+        <a class="nav-link" href="hospital-admin/{{token}}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="hospital-admin/billing-panel/{{ token }}">Billing</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)= "logout()" href="login">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="admin_content"></div>
+
+ <select style="background-color: black; text-decoration: solid;
+ padding: 10px; color:white; font-family:Verdana, Geneva, Tahoma, sans-serif ; margin-top: 100px; float: right;margin-right: 100px;
+ " class="add-select" name="select-speciality" (click)= addMember($event)>
+  <option selected>Add new member</option>
+  <option value="Physician">Add Physician</option>
+  <option value="Lab-Admin">Add Lab Admin</option>
+  <option value="Pharmacy-Admin">Add Pharmacy Admin</option>
+</select>
+
